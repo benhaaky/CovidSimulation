@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+
+<context id="COVID-19 Simulation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context">
+  	<projection type="continuous space" id="space"/>
+  	<projection type="grid" id="grid"/>
+=======
 <context id="COVID-19 Simulation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://repast.org/scenario/context">
   	
+>>>>>>> ee8b97aa70b089f3cf0699af212acef18765f36e
 </context>
