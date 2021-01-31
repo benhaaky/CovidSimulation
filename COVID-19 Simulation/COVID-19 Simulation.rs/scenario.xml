@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<<<<<<< HEAD
-<Scenario simphonyVersion="2.8.0">
-<repast.simphony.dataLoader.engine.ClassNameDataLoaderAction context="COVID-19 Simulation" file="repast.simphony.dataLoader.engine.ClassNameDataLoaderAction_0.xml" />
-<repast.simphony.action.display context="COVID-19 Simulation" file="repast.simphony.action.display_1.xml" />
-=======
-<Scenario>
->>>>>>> ee8b97aa70b089f3cf0699af212acef18765f36e
-</Scenario>
