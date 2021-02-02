@@ -3,14 +3,22 @@
   <type>2D</type>
   <styles>
     <entry>
-      <string>cS310_Project.Agent</string>
-      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
+      <string>cS310_Project.Infected</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
+    </entry>
+    <entry>
+      <string>cS310_Project.Susceptible</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
   </styles>
   <editedStyles>
     <entry>
-      <string>cS310_Project.Agent</string>
-      <null/>
+      <string>cS310_Project.Infected</string>
+      <string>cS310_Project.Infected.style_6.xml</string>
+    </entry>
+    <entry>
+      <string>cS310_Project.Susceptible</string>
+      <string>cS310_Project.Susceptible.style_0.xml</string>
     </entry>
   </editedStyles>
   <netStyles/>
@@ -23,14 +31,18 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-1451973247</hashCode>
+    <hashCode>-57134344</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>space</layoutProjection>
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
-      <string>cS310_Project.Agent</string>
+      <string>cS310_Project.Infected</string>
+      <int>1</int>
+    </entry>
+    <entry>
+      <string>cS310_Project.Susceptible</string>
       <int>0</int>
     </entry>
   </layerOrder>

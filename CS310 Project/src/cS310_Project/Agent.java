@@ -36,16 +36,28 @@ public class Agent {
 	
 	
 	
-	public Agent (ContinuousSpace<Object> space, Grid<Object> grid, boolean inf, boolean sus) {
+	public Agent (ContinuousSpace<Object> space, Grid<Object> grid) {
 		this.space = space;
 		this.grid = grid;
 		this.recovered = false;
-		this.infected = inf;
-		this.susceptible = sus;
+
 		
 		
 		
 	}
+	public Grid<Object> getGrid(){
+		return this.grid;
+	}
+	public ContinuousSpace<Object> getSpace(){
+		return this.space;
+	}
+	public GridPoint getDestination() {
+		return this.moveTowards;
+	}
+	public void setDestination(GridPoint dest) {
+		this.moveTowards = dest;
+	}
+	
 	
 	public boolean susceptible() {
 		if (susceptible == true) {
@@ -53,11 +65,7 @@ public class Agent {
 		}
 		return false;
 	}
-	public void getInfected() {
-		this.susceptible = false;
-		this.infected = true;
-		System.out.println("Infected");
-	}
+
 	
 	public void move() {
 		GridPoint pt = this.moveTowards;
@@ -84,24 +92,14 @@ public class Agent {
 		
 		
 	}
-	public void infect() {
-		GridPoint pt = grid.getLocation(this);
-		List<Agent> agents = new ArrayList<Agent>();
-		for (Object obj : grid.getObjectsAt(pt.getX(), pt.getY())) {
-			agents.add((Agent) obj);
-			Agent agent = agents.get(agents.size()-1);
-			if (agent.susceptible()) {
-				agent.getInfected();
-				
-			}
-		}
-	}
-	@ScheduledMethod(start = 1, interval = 1000)
+
 	public void step() {
 		//Get grid location
-		if(infected == true) {
-			infect();
-		}
+
 		move();
+	}
+	
+	public void finalize() {
+		System.out.println("finalize method called");
 	}
 }

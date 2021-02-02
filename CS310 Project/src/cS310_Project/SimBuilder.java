@@ -45,14 +45,14 @@ public class SimBuilder implements ContextBuilder<Object> {
 		for (int i=0; i<agentCount; i++) {
 			inf = false;
 			sus = true;
-			if(Math.random() < 0.1) {
+			if(Math.random() < 0.2) {
 				inf = true;
 				sus = false;
-				System.out.println("spawn");
+				context.add(new Infected(space, grid));
 			}else {
-				System.out.println("Health");
+				context.add(new Susceptible(space, grid));
 			}
-			context.add(new Susceptible(space, grid, inf, sus));
+			
 		}
 		for (Object obj : context) {
 			NdPoint pt = space.getLocation(obj);
