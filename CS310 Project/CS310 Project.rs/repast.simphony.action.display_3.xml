@@ -1,7 +1,11 @@
 <repast.simphony.visualization.engine.CartesianDisplayDescriptor simphonyVersion="2.8.0">
-  <name>New Display</name>
+  <name>SIR Model</name>
   <type>2D</type>
   <styles>
+    <entry>
+      <string>cS310_Project.Recovered</string>
+      <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
+    </entry>
     <entry>
       <string>cS310_Project.Infected</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
@@ -13,12 +17,16 @@
   </styles>
   <editedStyles>
     <entry>
+      <string>cS310_Project.Recovered</string>
+      <string>cS310_Project.Recovered.style_6.xml</string>
+    </entry>
+    <entry>
       <string>cS310_Project.Infected</string>
-      <string>cS310_Project.Infected.style_6.xml</string>
+      <string>cS310_Project.Infected.style_8.xml</string>
     </entry>
     <entry>
       <string>cS310_Project.Susceptible</string>
-      <string>cS310_Project.Susceptible.style_0.xml</string>
+      <string>cS310_Project.Susceptible.style_1.xml</string>
     </entry>
   </editedStyles>
   <netStyles/>
@@ -31,15 +39,19 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>-57134344</hashCode>
+    <hashCode>2091967261</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>space</layoutProjection>
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
-      <string>cS310_Project.Infected</string>
+      <string>cS310_Project.Recovered</string>
       <int>1</int>
+    </entry>
+    <entry>
+      <string>cS310_Project.Infected</string>
+      <int>2</int>
     </entry>
     <entry>
       <string>cS310_Project.Susceptible</string>

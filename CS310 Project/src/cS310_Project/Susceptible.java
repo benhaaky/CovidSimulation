@@ -20,7 +20,7 @@ public class Susceptible extends Agent {
 		context.add(newInfected);
 		System.out.println("Infected");
 	}
-	@ScheduledMethod(start = 1, interval = 1000)
+	@ScheduledMethod(start = 1, interval = 1)
 	public void step() {
 		//Get grid location
 		

@@ -15,11 +15,6 @@
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 											/>
-				<parameter name="infectionTime" displayName="Ticks to recover" type="int" 
-						defaultValue="1000" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
-											/>
 		</parameters>
 
 

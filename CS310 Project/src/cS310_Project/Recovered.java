@@ -16,7 +16,7 @@ public class Recovered extends Agent {
 		oldAgent = null;
 		// TODO Auto-generated constructor stub
 	}
-	@ScheduledMethod(start = 1, interval = 1000)
+	@ScheduledMethod(start = 1, interval = 1)
 	public void step() {
 		//Get grid location
 		
@@ -24,4 +24,5 @@ public class Recovered extends Agent {
 	}
 
 
+	
 }

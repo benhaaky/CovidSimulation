@@ -7,6 +7,7 @@ import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.parameter.Parameters;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.continuous.NdPoint;
 import repast.simphony.space.grid.Grid;
@@ -14,13 +15,15 @@ import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
 
 public class Infected extends Agent {
-	private double recoveryTime = 500000;
+	private double recoveryTime;
 	private double infectionTime;
 	
 	public Infected(ContinuousSpace<Object> space, Grid<Object> grid) {
 		super(space, grid);
 		infectionTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		System.out.println(infectionTime);
+		Parameters params = RunEnvironment.getInstance().getParameters();
+		recoveryTime = params.getInteger("infectionTime");
 		// TODO Auto-generated constructor stub
 	}
 	public void recover() {
@@ -71,7 +74,7 @@ public class Infected extends Agent {
 			System.out.println("Removed");
 		}
 	}
-	@ScheduledMethod(start = 1, interval = 1000, shuffle=true)
+	@ScheduledMethod(start = 1, interval = 1, shuffle=true)
 	public void step() {
 		//Get grid location
 		System.out.println("infect");
