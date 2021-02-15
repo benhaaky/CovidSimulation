@@ -2,6 +2,7 @@ package cS310_Project;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
@@ -18,17 +19,28 @@ public class Infected extends Agent {
 	private double recoveryTime;
 	private double infectionTime;
 	
+	private boolean diagnosed;
+	private boolean symptomatic;
+	
 	public Infected(ContinuousSpace<Object> space, Grid<Object> grid) {
 		super(space, grid);
+		// Set recovery time from user input
 		infectionTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		System.out.println(infectionTime);
 		Parameters params = RunEnvironment.getInstance().getParameters();
-		recoveryTime = params.getInteger("infectionTime");
-		// TODO Auto-generated constructor stub
+		Random r = new Random();
+		
+		double recoveryTicks = params.getInteger("infectionTime");
+		double recoverySTD = recoveryTicks*0.1;
+		this.recoveryTime = r.nextGaussian()*recoverySTD+recoveryTicks;
 	}
+	//Check if an infected agent has recovered
 	public void recover() {
+		// get current time
 		double currentTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		// Check if enough time has passed
 		if (currentTime > (recoveryTime+infectionTime)) {
+			//Replace agent with recovered agent
 			System.out.println("true");
 			GridPoint GridPoint = getGrid().getLocation(this);
 			NdPoint spacePoint = getSpace().getLocation(this);
@@ -44,19 +56,26 @@ public class Infected extends Agent {
 		}
 	}
 	
+	// Infect other agents
 	public void infect() {
+		
 		GridPoint GridPoint = getGrid().getLocation(this);
 		
 		List<Susceptible> susAgents = new ArrayList<Susceptible>();
+		//Get objects in agents grid location
 		Object object = getGrid().getObjectsAt(GridPoint.getX(), GridPoint.getY());
+		//Loop through agents in same grid space
 		for (Object obj : getGrid().getObjectsAt(GridPoint.getX(), GridPoint.getY())) {
+			// Check if the agent can be infected
  			if (obj instanceof Susceptible) {
 				susAgents.add((Susceptible) obj);
 					
 			}
 			
 		}
+		// Loop through agents to be infected
 		for (Susceptible sus : susAgents) {
+			// Replace susceptible agent with infected agent
 			NdPoint spacePoint = getSpace().getLocation(sus);
 			Context<Object> context = ContextUtils.getContext(this);
 			
@@ -74,6 +93,15 @@ public class Infected extends Agent {
 			System.out.println("Removed");
 		}
 	}
+	
+	public void displaySymptoms() {
+		this.symptomatic = true;
+	}
+	
+	public void detectInfection() {
+		this.diagnosed = true;
+	}
+	
 	@ScheduledMethod(start = 1, interval = 1, shuffle=true)
 	public void step() {
 		//Get grid location

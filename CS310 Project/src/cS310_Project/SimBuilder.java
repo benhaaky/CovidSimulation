@@ -27,35 +27,42 @@ public class SimBuilder implements ContextBuilder<Object> {
 
 	@Override
 	public Context build(Context<Object> context) {
-		// TODO Auto-generated method stub
+		// TODO Auto-generated method stu
+		//Generate space for agents to be displayed
 		ContinuousSpaceFactory spaceFactory =
 				ContinuousSpaceFactoryFinder.createContinuousSpaceFactory(null);
 		ContinuousSpace<Object> space = spaceFactory.createContinuousSpace("space", context,
 				new RandomCartesianAdder<Object>(),//Random location for agents
 				new repast.simphony.space.continuous.WrapAroundBorders(), //Wrapped borders
-				1000, 1000);
-		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
+				300, 300);
 		
+		// Generate grid to detect collision between agents
+		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
 		Grid<Object> grid = gridFactory.createGrid("Grid", context,
 				new GridBuilderParameters<Object>(new WrapAroundBorders(),
 				new SimpleGridAdder<Object>(),
-				true, 1000, 1000));
+				true, 300, 300));
+		// Get the parameter input
 		Parameters params = RunEnvironment.getInstance().getParameters();
 		int agentCount = params.getInteger("numSusceptible");
 		int infectedCount = params.getInteger("numInfected");
 		GridPoint moveTowards;
 		boolean inf = false;
 		boolean sus = true;
+		
+		// Create susceptible agents and add them to context
 		for (int i=0; i<agentCount; i++) {
 			
 			context.add(new Susceptible(space, grid));
 			
 		}
+		// Create infecte agents and add them to context
 		for (int i=0; i<infectedCount; i++) {
 			
 			context.add(new Infected(space, grid));
 			
 		}
+		// Move each agent
 		for (Object obj : context) {
 			NdPoint pt = space.getLocation(obj);
 			grid.moveTo(obj, (int)pt.getX(), (int)pt.getY());

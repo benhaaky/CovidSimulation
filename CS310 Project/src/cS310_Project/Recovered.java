@@ -10,15 +10,12 @@ public class Recovered extends Agent {
 
 	public Recovered(ContinuousSpace<Object> space, Grid<Object> grid, Infected oldAgent) {
 		super(space, grid);
-		Context<Object> context = ContextUtils.getContext(this);
-		System.out.println(oldAgent);
-		//context.remove(oldAgent);
+		// Clean old agent
 		oldAgent = null;
 		// TODO Auto-generated constructor stub
 	}
 	@ScheduledMethod(start = 1, interval = 1)
 	public void step() {
-		//Get grid location
 		
 		super.step();
 	}
