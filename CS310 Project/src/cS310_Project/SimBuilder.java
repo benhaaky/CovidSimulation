@@ -62,6 +62,7 @@ public class SimBuilder implements ContextBuilder<Object> {
 			context.add(new Infected(space, grid));
 			
 		}
+		context.add(new RnumberCalc());
 		// Move each agent
 		for (Object obj : context) {
 			NdPoint pt = space.getLocation(obj);

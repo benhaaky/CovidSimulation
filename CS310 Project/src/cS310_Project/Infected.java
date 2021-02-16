@@ -22,11 +22,12 @@ public class Infected extends Agent {
 	private boolean diagnosed;
 	private boolean symptomatic;
 	
+	private int agentsInfected = 0;
+	
 	public Infected(ContinuousSpace<Object> space, Grid<Object> grid) {
 		super(space, grid);
 		// Set recovery time from user input
 		infectionTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
-		System.out.println(infectionTime);
 		Parameters params = RunEnvironment.getInstance().getParameters();
 		Random r = new Random();
 		
@@ -41,7 +42,6 @@ public class Infected extends Agent {
 		// Check if enough time has passed
 		if (currentTime > (recoveryTime+infectionTime)) {
 			//Replace agent with recovered agent
-			System.out.println("true");
 			GridPoint GridPoint = getGrid().getLocation(this);
 			NdPoint spacePoint = getSpace().getLocation(this);
 			Context<Object> context = ContextUtils.getContext(this);
@@ -52,7 +52,6 @@ public class Infected extends Agent {
 			getSpace().moveTo(newRecovered, spacePoint.getX(), spacePoint.getY());
 			getGrid().moveTo(newRecovered, GridPoint.getX(), GridPoint.getY());
 			context.remove(this);
-			System.out.println("Recovered");
 		}
 	}
 	
@@ -87,10 +86,9 @@ public class Infected extends Agent {
 			
 
 			
-			System.out.println("Infected");
 			context.remove(sus);
 			sus = null;
-			System.out.println("Removed");
+			this.agentsInfected += 1;
 		}
 	}
 	
@@ -102,13 +100,11 @@ public class Infected extends Agent {
 		this.diagnosed = true;
 	}
 	
-	@ScheduledMethod(start = 1, interval = 1, shuffle=true)
+	@ScheduledMethod(start = 1, interval = 1, shuffle=true, priority=5)
 	public void step() {
 		//Get grid location
-		System.out.println("infect");
 		infect();
 		super.step();
-		System.out.println("recover check");
 		recover();
 		
 	}

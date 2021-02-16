@@ -14,7 +14,7 @@ public class Recovered extends Agent {
 		oldAgent = null;
 		// TODO Auto-generated constructor stub
 	}
-	@ScheduledMethod(start = 1, interval = 1)
+	@ScheduledMethod(start = 1, interval = 1, priority=5)
 	public void step() {
 		
 		super.step();

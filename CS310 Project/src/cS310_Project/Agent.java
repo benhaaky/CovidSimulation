@@ -120,7 +120,7 @@ public class Agent {
 		move();
 	}
 	
-	public void finalize() {
-		System.out.println("finalize method called");
-	}
+//	public void finalize() {
+//		System.out.println("finalize method called");
+//	}
 }
