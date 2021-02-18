@@ -23,6 +23,7 @@ public class Infected extends Agent {
 	private boolean symptomatic;
 	
 	private int agentsInfected = 0;
+	private boolean recovered = false;
 	
 	public Infected(ContinuousSpace<Object> space, Grid<Object> grid) {
 		super(space, grid);
@@ -41,6 +42,7 @@ public class Infected extends Agent {
 		double currentTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		// Check if enough time has passed
 		if (currentTime > (recoveryTime+infectionTime)) {
+			this.recovered = true;
 			//Replace agent with recovered agent
 			GridPoint GridPoint = getGrid().getLocation(this);
 			NdPoint spacePoint = getSpace().getLocation(this);

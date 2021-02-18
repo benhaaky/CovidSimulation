@@ -17,8 +17,16 @@ public class RnumberCalc {
 			query = "colocated",
 			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE)
 	public void calculateR() {
-		infectionTick += 1;
+		this.infectionTick += 1;
 		totalInfections += 1;
+		
+	}
+	@Watch(watcheeClassName = "cS310_Project.Infected",
+			watcheeFieldNames = "recovered",
+			query = "colocated",
+			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE)
+	public void agentRecover() {
+		this.totalInfections -= 1;
 		
 	}
 	
@@ -35,7 +43,7 @@ public class RnumberCalc {
 		Parameters params = RunEnvironment.getInstance().getParameters();
 		
 		double recoveryTicks = params.getInteger("infectionTime");
-		double Rnum = Rt*recoveryTicks;
+		double Rnum = Rt*recoveryTicks/2;
 		System.out.println("total/R: " + tR);
 		System.out.println("R/total: " + Rt);
 		System.out.println("R: " + Rnum);

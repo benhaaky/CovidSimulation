@@ -3,6 +3,10 @@
   <type>2D</type>
   <styles>
     <entry>
+      <string>cS310_Project.Vaccinated</string>
+      <string>repast.simphony.visualizationOGL2D.DefaultStyleOGL2D</string>
+    </entry>
+    <entry>
       <string>cS310_Project.Recovered</string>
       <string>repast.simphony.visualization.editedStyle.EditedStyle2D</string>
     </entry>
@@ -16,6 +20,10 @@
     </entry>
   </styles>
   <editedStyles>
+    <entry>
+      <string>cS310_Project.Vaccinated</string>
+      <null/>
+    </entry>
     <entry>
       <string>cS310_Project.Recovered</string>
       <string>cS310_Project.Recovered.style_6.xml</string>
@@ -39,23 +47,27 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>2091967261</hashCode>
+    <hashCode>1939689592</hashCode>
   </schedParams>
   <layoutClassName>foo.bar.baz</layoutClassName>
   <layoutProjection>space</layoutProjection>
   <layoutInterval>0</layoutInterval>
   <layerOrder>
     <entry>
-      <string>cS310_Project.Recovered</string>
-      <int>1</int>
+      <string>cS310_Project.Vaccinated</string>
+      <int>0</int>
     </entry>
     <entry>
-      <string>cS310_Project.Infected</string>
+      <string>cS310_Project.Recovered</string>
       <int>2</int>
     </entry>
     <entry>
+      <string>cS310_Project.Infected</string>
+      <int>3</int>
+    </entry>
+    <entry>
       <string>cS310_Project.Susceptible</string>
-      <int>0</int>
+      <int>1</int>
     </entry>
   </layerOrder>
   <projections>

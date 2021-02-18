@@ -71,17 +71,8 @@ public class Agent {
 		}
 		return false;
 	}
-	
-	public void vaccinateAgent() {
-		this.vaccinated = true;
-	}
-	
-	public boolean getVaccinated() {
-		return this.vaccinated;
-	}
-	public boolean getVulnerable() {
-		return this.vulnerable;
-	}
+
+
 	
 
 	// Move Agents
