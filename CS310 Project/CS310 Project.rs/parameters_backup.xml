@@ -25,6 +25,11 @@
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 											/>
+				<parameter name="vaccinePerTick" displayName="Vaccinations per Tick" type="int" 
+						defaultValue="10" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+											/>
 		</parameters>
 
 

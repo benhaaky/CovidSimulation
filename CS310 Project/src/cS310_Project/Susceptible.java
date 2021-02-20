@@ -27,17 +27,10 @@ public class Susceptible extends Agent {
 		getGrid().moveTo(newVaccinated, GridPoint.getX(), GridPoint.getY());
 		context.remove(this);
 	}
-	public void getInfected(Context<Object> context) {
-		
-		Infected newInfected = new Infected(getSpace(), getGrid());
-		newInfected.setDestination(this.getDestination());
-		context.add(newInfected);
-		System.out.println("Infected");
-	}
+
 	@ScheduledMethod(start = 1, interval = 1, priority = 5)
 	public void step() {
 		//Get grid location
-		
 		super.step();
 	}
 

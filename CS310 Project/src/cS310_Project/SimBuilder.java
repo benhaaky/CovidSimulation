@@ -59,11 +59,11 @@ public class SimBuilder implements ContextBuilder<Object> {
 		// Create infecte agents and add them to context
 		for (int i=0; i<infectedCount; i++) {
 			
-			context.add(new Infected(space, grid));
+			context.add(new Infected(space, grid, false));
 			
 		}
 		context.add(new RnumberCalc());
-		context.add(new Vaccination(50));
+		context.add(new Vaccination(10));
 		// Move each agent
 		for (Object obj : context) {
 			NdPoint pt = space.getLocation(obj);

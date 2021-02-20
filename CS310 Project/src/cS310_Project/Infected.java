@@ -21,16 +21,20 @@ public class Infected extends Agent {
 	
 	private boolean diagnosed;
 	private boolean symptomatic;
+	private boolean vaccinated;
 	
 	private int agentsInfected = 0;
 	private boolean recovered = false;
 	
-	public Infected(ContinuousSpace<Object> space, Grid<Object> grid) {
+	public Infected(ContinuousSpace<Object> space, Grid<Object> grid, boolean vaccine) {
 		super(space, grid);
 		// Set recovery time from user input
+		this.vaccinated = vaccine;
+		
 		infectionTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		Parameters params = RunEnvironment.getInstance().getParameters();
 		Random r = new Random();
+		
 		
 		double recoveryTicks = params.getInteger("infectionTime");
 		double recoverySTD = recoveryTicks*0.1;
@@ -62,26 +66,41 @@ public class Infected extends Agent {
 		
 		GridPoint GridPoint = getGrid().getLocation(this);
 		
-		List<Susceptible> susAgents = new ArrayList<Susceptible>();
+		List<Susceptible> susnts = new ArrayList<Susceptible>();
+		List<Object> susAgents = new ArrayList<Object>();
+		List<Vaccinated> vacAgents = new ArrayList<Vaccinated>();
 		//Get objects in agents grid location
 		Object object = getGrid().getObjectsAt(GridPoint.getX(), GridPoint.getY());
 		//Loop through agents in same grid space
 		for (Object obj : getGrid().getObjectsAt(GridPoint.getX(), GridPoint.getY())) {
 			// Check if the agent can be infected
  			if (obj instanceof Susceptible) {
-				susAgents.add((Susceptible) obj);
+				susAgents.add(obj);
 					
+			} else if (obj instanceof Vaccinated) {
+				if (!((Vaccinated) obj).isImmune()) {
+					susAgents.add(obj);
+					System.out.println("No immunity");
+
+				}
+				
 			}
 			
 		}
 		// Loop through agents to be infected
-		for (Susceptible sus : susAgents) {
+		for (Object sus : susAgents) {
 			// Replace susceptible agent with infected agent
 			NdPoint spacePoint = getSpace().getLocation(sus);
 			Context<Object> context = ContextUtils.getContext(this);
+			Infected newInfected;
+			if (sus instanceof Susceptible) {
+				newInfected = new Infected(getSpace(), getGrid(), false);
+				newInfected.setDestination(((Susceptible) sus).getDestination());
+			} else {
+				newInfected = new Infected(getSpace(), getGrid(), true);
+				newInfected.setDestination(((Vaccinated) sus).getDestination());
+			}
 			
-			Infected newInfected = new Infected(getSpace(), getGrid());
-			newInfected.setDestination(sus.getDestination());
 			context.add(newInfected);
 			getSpace().moveTo(newInfected, spacePoint.getX(), spacePoint.getY());
 			getGrid().moveTo(newInfected, GridPoint.getX(), GridPoint.getY());

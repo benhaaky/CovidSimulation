@@ -2,6 +2,7 @@ package cS310_Project;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
@@ -15,7 +16,11 @@ import repast.simphony.util.ContextUtils;
 public class Vaccination {
 	private int vaccPerTick;
 	public Vaccination(int num) {
-		vaccPerTick = num;
+		Parameters params = RunEnvironment.getInstance().getParameters();
+		
+		
+		int vpt = params.getInteger("vaccinePerTick");
+		this.vaccPerTick = vpt;
 	}
 	@ScheduledMethod(start = 1, interval = 1, priority = 1)
 	public void step() {
