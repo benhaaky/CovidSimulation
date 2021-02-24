@@ -28,22 +28,27 @@ public class SimBuilder implements ContextBuilder<Object> {
 	@Override
 	public Context build(Context<Object> context) {
 		// TODO Auto-generated method stu
+		
+		Parameters params = RunEnvironment.getInstance().getParameters();
+		
+		
+		int size = params.getInteger("spaceSize");
 		//Generate space for agents to be displayed
 		ContinuousSpaceFactory spaceFactory =
 				ContinuousSpaceFactoryFinder.createContinuousSpaceFactory(null);
 		ContinuousSpace<Object> space = spaceFactory.createContinuousSpace("space", context,
 				new RandomCartesianAdder<Object>(),//Random location for agents
 				new repast.simphony.space.continuous.WrapAroundBorders(), //Wrapped borders
-				300, 300);
+				size, size);
 		
 		// Generate grid to detect collision between agents
 		GridFactory gridFactory = GridFactoryFinder.createGridFactory(null);
 		Grid<Object> grid = gridFactory.createGrid("Grid", context,
 				new GridBuilderParameters<Object>(new WrapAroundBorders(),
 				new SimpleGridAdder<Object>(),
-				true, 300, 300));
+				true, size, size));
+		
 		// Get the parameter input
-		Parameters params = RunEnvironment.getInstance().getParameters();
 		int agentCount = params.getInteger("numSusceptible");
 		int infectedCount = params.getInteger("numInfected");
 		GridPoint moveTowards;
@@ -51,15 +56,22 @@ public class SimBuilder implements ContextBuilder<Object> {
 		boolean sus = true;
 		
 		// Create susceptible agents and add them to context
+		double atRisk = 0.2;
+		double numAtRisk = agentCount*atRisk;
 		for (int i=0; i<agentCount; i++) {
-			
-			context.add(new Susceptible(space, grid));
+			if (i<numAtRisk) {
+				context.add(new Susceptible(space, grid, true));
+			} else {
+				context.add(new Susceptible(space, grid, false));
+			}
 			
 		}
+		
+		
 		// Create infecte agents and add them to context
 		for (int i=0; i<infectedCount; i++) {
 			
-			context.add(new Infected(space, grid, false));
+			context.add(new Infected(space, grid, false, false));
 			
 		}
 		context.add(new RnumberCalc());

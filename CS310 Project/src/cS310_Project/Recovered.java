@@ -8,8 +8,8 @@ import repast.simphony.util.ContextUtils;
 
 public class Recovered extends Agent {
 
-	public Recovered(ContinuousSpace<Object> space, Grid<Object> grid, Infected oldAgent) {
-		super(space, grid);
+	public Recovered(ContinuousSpace<Object> space, Grid<Object> grid, Infected oldAgent, boolean vulnerable) {
+		super(space, grid, vulnerable);
 		// Clean old agent
 		oldAgent = null;
 		// TODO Auto-generated constructor stub

@@ -9,10 +9,9 @@ import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
 
 public class Susceptible extends Agent {
-	private boolean vaccinated = false;
-
-	public Susceptible(ContinuousSpace<Object> space, Grid<Object> grid) {
-		super(space, grid);
+	
+	public Susceptible(ContinuousSpace<Object> space, Grid<Object> grid, boolean vulnerable) {
+		super(space, grid, vulnerable);
 		// TODO Auto-generated constructor stub
 	}
 	public void getVaccine() {
@@ -20,7 +19,7 @@ public class Susceptible extends Agent {
 		NdPoint spacePoint = getSpace().getLocation(this);
 		Context<Object> context = ContextUtils.getContext(this);
 		
-		Vaccinated newVaccinated = new Vaccinated(this.getSpace(), this.getGrid());
+		Vaccinated newVaccinated = new Vaccinated(this.getSpace(), this.getGrid(), atRisk());
 		newVaccinated.setDestination(this.getDestination());
 		context.add(newVaccinated);
 		getSpace().moveTo(newVaccinated, spacePoint.getX(), spacePoint.getY());

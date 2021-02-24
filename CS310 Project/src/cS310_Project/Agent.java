@@ -32,23 +32,23 @@ public class Agent {
 	private GridPoint moveTowards;
 	public boolean susceptible;
 
-	
+	//Store whether agents have been vaccinated
 	private boolean vaccinated;
 	
+	//Store whether agent is vulnerable
 	private boolean vulnerable;
 	
 	
-	
-	
-	public Agent (ContinuousSpace<Object> space, Grid<Object> grid) {
+	public Agent (ContinuousSpace<Object> space, Grid<Object> grid, boolean vulnerable) {
+		//Init agent in space and grid
 		this.space = space;
 		this.grid = grid;
 		this.vaccinated = false;
-		this.vulnerable = true;
-
+		this.vulnerable = true;	
 		
-		
-		
+	}
+	public boolean atRisk() {
+		return this.vulnerable;
 	}
 	public Grid<Object> getGrid(){
 		return this.grid;
@@ -63,18 +63,6 @@ public class Agent {
 		this.moveTowards = dest;
 	}
 	
-	// Check is agent can be infected
-	//	Not in use
-	public boolean susceptible() {
-		if (susceptible == true) {
-			return true;
-		}
-		return false;
-	}
-
-
-	
-
 	// Move Agents
 	public void move() {
 		//Get current destination
@@ -100,18 +88,10 @@ public class Agent {
 			grid.moveTo(this, (int)point.getX(), (int)point.getY());
 		}
 		
-		
-		
-		
 	}
 
 	public void step() {
 		//Get grid location
-
 		move();
 	}
-	
-//	public void finalize() {
-//		System.out.println("finalize method called");
-//	}
 }

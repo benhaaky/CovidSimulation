@@ -10,7 +10,9 @@ import repast.simphony.parameter.Parameters;
 
 public class RnumberCalc {
 	private double infectionTick = 0.0;
+	private double currentInfections = 0.0;
 	private double totalInfections = 0.0;
+	private double symptomatic = 0.0;
 	
 	@Watch(watcheeClassName = "cS310_Project.Infected",
 			watcheeFieldNames = "agentsInfected",
@@ -18,7 +20,7 @@ public class RnumberCalc {
 			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE)
 	public void calculateR() {
 		this.infectionTick += 1;
-		totalInfections += 1;
+		currentInfections += 1;
 		
 	}
 	@Watch(watcheeClassName = "cS310_Project.Infected",
@@ -26,19 +28,27 @@ public class RnumberCalc {
 			query = "colocated",
 			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE)
 	public void agentRecover() {
-		this.totalInfections -= 1;
+		this.currentInfections -= 1;
+		
+	}
+	@Watch(watcheeClassName = "cS310_Project.Infected",
+			watcheeFieldNames = "symptomatic",
+			query = "colocated",
+			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE)
+	public void symptomWatch() {
+		this.symptomatic += 1;
 		
 	}
 	
 	@ScheduledMethod(start = 1, interval = 1, priority = 6)
 	public void step() {
 		System.out.println("This tick: " + this.infectionTick);
-		System.out.println("Total: " + this.totalInfections);
+		System.out.println("Total: " + this.currentInfections);
 		double tR = 0;
 		double Rt = 0;
-		if (this.totalInfections != 0 && this.infectionTick != 0) {
-			tR = this.totalInfections/this.infectionTick;
-			Rt = this.infectionTick/this.totalInfections;
+		if (this.currentInfections != 0 && this.infectionTick != 0) {
+			tR = this.currentInfections/this.infectionTick;
+			Rt = this.infectionTick/this.currentInfections;
 		}
 		Parameters params = RunEnvironment.getInstance().getParameters();
 		

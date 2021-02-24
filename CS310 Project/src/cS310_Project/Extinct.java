@@ -5,8 +5,8 @@ import repast.simphony.space.grid.Grid;
 
 public class Extinct extends Agent {
 
-	public Extinct(ContinuousSpace<Object> space, Grid<Object> grid) {
-		super(space, grid);
+	public Extinct(ContinuousSpace<Object> space, Grid<Object> grid, boolean vulnerable) {
+		super(space, grid, vulnerable);
 		// TODO Auto-generated constructor stub
 	}
 

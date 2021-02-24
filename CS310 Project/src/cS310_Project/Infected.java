@@ -16,43 +16,62 @@ import repast.simphony.space.grid.GridPoint;
 import repast.simphony.util.ContextUtils;
 
 public class Infected extends Agent {
+	//Ticks to recovery
 	private double recoveryTime;
-	private double infectionTime;
+	//Tick infected
+	private double timeOfInfection;	
+	//Store if the agents condition has worsened
+	private boolean threatened = false;
+	//Has agent been hospitilised
+	private boolean hospitilised = false;
 	
+	//Probably not needed
 	private boolean diagnosed;
-	private boolean symptomatic;
+	//Is agent symptomatic
+	private boolean symptomatic = false;
+	//How long until agent is symptomatic
+	private double timeToSymptoms;
+	//Was the agent previously vaccinated
 	private boolean vaccinated;
-	
+	//Amount of other agent this has infected
 	private int agentsInfected = 0;
 	private boolean recovered = false;
 	
-	public Infected(ContinuousSpace<Object> space, Grid<Object> grid, boolean vaccine) {
-		super(space, grid);
+	public Infected(ContinuousSpace<Object> space, Grid<Object> grid, boolean vaccine, boolean vulnerable) {
+		super(space, grid, vulnerable);
 		// Set recovery time from user input
 		this.vaccinated = vaccine;
 		
-		infectionTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		//Calculate how long the agent is infected for
+		timeOfInfection = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		Parameters params = RunEnvironment.getInstance().getParameters();
 		Random r = new Random();
-		
-		
+		//Get user input for recovery time
 		double recoveryTicks = params.getInteger("infectionTime");
+		//Randomly distribute the time
 		double recoverySTD = recoveryTicks*0.1;
 		this.recoveryTime = r.nextGaussian()*recoverySTD+recoveryTicks;
+		//Probability agent is symptomatic
+		double random = Math.random();
+		if (this.atRisk() || random < 0.2) {
+			timeToSymptoms = recoveryTime/3;
+		} else {
+			timeToSymptoms = recoveryTime+10;
+		}
 	}
 	//Check if an infected agent has recovered
 	public void recover() {
 		// get current time
 		double currentTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		// Check if enough time has passed
-		if (currentTime > (recoveryTime+infectionTime)) {
+		if (currentTime > (recoveryTime+timeOfInfection)) {
 			this.recovered = true;
 			//Replace agent with recovered agent
 			GridPoint GridPoint = getGrid().getLocation(this);
 			NdPoint spacePoint = getSpace().getLocation(this);
 			Context<Object> context = ContextUtils.getContext(this);
-			
-			Recovered newRecovered = new Recovered(this.getSpace(), this.getGrid(), this);
+			//update recovered agents location
+			Recovered newRecovered = new Recovered(this.getSpace(), this.getGrid(), this, this.atRisk());
 			newRecovered.setDestination(this.getDestination());
 			context.add(newRecovered);
 			getSpace().moveTo(newRecovered, spacePoint.getX(), spacePoint.getY());
@@ -94,10 +113,10 @@ public class Infected extends Agent {
 			Context<Object> context = ContextUtils.getContext(this);
 			Infected newInfected;
 			if (sus instanceof Susceptible) {
-				newInfected = new Infected(getSpace(), getGrid(), false);
+				newInfected = new Infected(getSpace(), getGrid(), false, this.atRisk());
 				newInfected.setDestination(((Susceptible) sus).getDestination());
 			} else {
-				newInfected = new Infected(getSpace(), getGrid(), true);
+				newInfected = new Infected(getSpace(), getGrid(), true, this.atRisk());
 				newInfected.setDestination(((Vaccinated) sus).getDestination());
 			}
 			
@@ -112,6 +131,9 @@ public class Infected extends Agent {
 			this.agentsInfected += 1;
 		}
 	}
+	public void startSymptoms() {
+		displaySymptoms();
+	}
 	
 	public void displaySymptoms() {
 		this.symptomatic = true;
@@ -125,6 +147,11 @@ public class Infected extends Agent {
 	public void step() {
 		//Get grid location
 		infect();
+		double currentTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		// Check if enough time has passed
+		if (currentTime > (timeToSymptoms+timeOfInfection)) {
+			startSymptoms();
+		}
 		super.step();
 		recover();
 		

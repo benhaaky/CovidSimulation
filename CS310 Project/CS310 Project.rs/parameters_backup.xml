@@ -5,11 +5,6 @@
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 											/>
-				<parameter name="simulationSize" displayName="Space Size" type="int" 
-						defaultValue="300" 
-						isReadOnly="false" 
-						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
-											/>
 				<parameter name="numSusceptible" displayName="Number of Susceptible" type="int" 
 						defaultValue="20000" 
 						isReadOnly="false" 

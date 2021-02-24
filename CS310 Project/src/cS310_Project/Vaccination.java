@@ -15,6 +15,8 @@ import repast.simphony.util.ContextUtils;
 
 public class Vaccination {
 	private int vaccPerTick;
+	private int vaccTotal = 1000;
+	private int currentVaccinated = 0;
 	public Vaccination(int num) {
 		Parameters params = RunEnvironment.getInstance().getParameters();
 		
@@ -24,7 +26,10 @@ public class Vaccination {
 	}
 	@ScheduledMethod(start = 1, interval = 1, priority = 1)
 	public void step() {
-		randomVaccinate();
+		if (vaccTotal > currentVaccinated) {
+			randomVaccinate();
+		}
+		
 		
 	}
 	public void randomVaccinate() {
@@ -39,6 +44,7 @@ public class Vaccination {
 		for (Susceptible sus : susAgents) {
 			// Replace susceptible agent with infected agent
 			sus.getVaccine();
+			this.currentVaccinated += 1;
 		}
 	}
 }

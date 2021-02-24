@@ -8,9 +8,9 @@ import repast.simphony.space.grid.Grid;
 
 public class Vaccinated extends Agent{
 	private boolean immune;
-	public Vaccinated(ContinuousSpace<Object> space, Grid<Object> grid) {
+	public Vaccinated(ContinuousSpace<Object> space, Grid<Object> grid, boolean vulnerable) {
 		// TODO Auto-generated constructor stub
-		super(space, grid);
+		super(space, grid, vulnerable);
 		double random = Math.random();
 		System.out.println(random);
 		if (random > 0.9) {
