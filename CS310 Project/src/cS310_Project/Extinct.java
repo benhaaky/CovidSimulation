@@ -3,10 +3,9 @@ package cS310_Project;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.grid.Grid;
 
-public class Extinct extends Agent {
+public class Extinct{
 
-	public Extinct(ContinuousSpace<Object> space, Grid<Object> grid, boolean vulnerable) {
-		super(space, grid, vulnerable);
+	public Extinct() {
 		// TODO Auto-generated constructor stub
 	}
 

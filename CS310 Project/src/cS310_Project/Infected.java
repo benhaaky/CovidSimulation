@@ -131,8 +131,24 @@ public class Infected extends Agent {
 			this.agentsInfected += 1;
 		}
 	}
+	
 	public void startSymptoms() {
 		displaySymptoms();
+		double random = Math.random();
+		if(this.atRisk() && Math.random() > 0.2) {
+			threatened = true;
+		}
+		System.out.println("Extinct");
+		System.out.println(this.atRisk());
+		extinct();
+		
+		
+	}
+	public void extinct() {
+		Context<Object> context = ContextUtils.getContext(this);
+		Extinct newExtinct = new Extinct();
+		context.add(newExtinct);
+		context.remove(this);
 	}
 	
 	public void displaySymptoms() {
@@ -145,6 +161,7 @@ public class Infected extends Agent {
 	
 	@ScheduledMethod(start = 1, interval = 1, shuffle=true, priority=5)
 	public void step() {
+		super.step();
 		//Get grid location
 		infect();
 		double currentTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
@@ -152,9 +169,11 @@ public class Infected extends Agent {
 		if (currentTime > (timeToSymptoms+timeOfInfection)) {
 			startSymptoms();
 		}
-		super.step();
 		recover();
 		
 	}
+	
+	
+	
 
 }

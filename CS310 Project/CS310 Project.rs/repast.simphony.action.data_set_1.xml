@@ -1,5 +1,5 @@
 <repast.simphony.data2.engine.DataSetDescriptor simphonyVersion="2.8.0">
-  <name>Inc Vacc</name>
+  <name>A Data Set</name>
   <type>AGGREGATE</type>
   <inclTick>true</inclTick>
   <inclBatchRun>false</inclBatchRun>
@@ -11,7 +11,7 @@
     <pType>LAST</pType>
     <duration>-1.0</duration>
     <frequency>REPEAT</frequency>
-    <hashCode>1939689592</hashCode>
+    <hashCode>1905220949</hashCode>
   </scheduleParams>
   <atEnd>false</atEnd>
   <methodDataSources class="linked-hash-map"/>
@@ -42,6 +42,13 @@
       <repast.simphony.data2.engine.CountSourceDefinition>
         <typeName>cS310_Project.Vaccinated</typeName>
         <id>Vaccinated Count</id>
+      </repast.simphony.data2.engine.CountSourceDefinition>
+    </entry>
+    <entry>
+      <string>Extinct Count</string>
+      <repast.simphony.data2.engine.CountSourceDefinition>
+        <typeName>cS310_Project.Extinct</typeName>
+        <id>Extinct Count</id>
       </repast.simphony.data2.engine.CountSourceDefinition>
     </entry>
   </countSources>

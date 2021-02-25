@@ -58,10 +58,12 @@ public class SimBuilder implements ContextBuilder<Object> {
 		// Create susceptible agents and add them to context
 		double atRisk = 0.2;
 		double numAtRisk = agentCount*atRisk;
+		System.out.println(numAtRisk);
 		for (int i=0; i<agentCount; i++) {
 			if (i<numAtRisk) {
 				context.add(new Susceptible(space, grid, true));
 			} else {
+				
 				context.add(new Susceptible(space, grid, false));
 			}
 			

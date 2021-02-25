@@ -39,12 +39,12 @@ public class Agent {
 	private boolean vulnerable;
 	
 	
-	public Agent (ContinuousSpace<Object> space, Grid<Object> grid, boolean vulnerable) {
+	public Agent (ContinuousSpace<Object> space, Grid<Object> grid, boolean vul) {
 		//Init agent in space and grid
 		this.space = space;
 		this.grid = grid;
 		this.vaccinated = false;
-		this.vulnerable = true;	
+		this.vulnerable = vul;	
 		
 	}
 	public boolean atRisk() {

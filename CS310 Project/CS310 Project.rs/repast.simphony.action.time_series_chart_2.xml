@@ -1,9 +1,9 @@
 <repast.simphony.chart2.engine.TimeSeriesChartDescriptor simphonyVersion="2.8.0">
-  <name>Time Series Chart</name>
-  <dataSet>Inc Vacc</dataSet>
+  <name>Chart wth Extinct</name>
+  <dataSet>A Data Set</dataSet>
   <xAxisLabel>Tick Count</xAxisLabel>
-  <yAxisLabel>Count</yAxisLabel>
-  <chartTitle>Infection</chartTitle>
+  <yAxisLabel>Num Agents</yAxisLabel>
+  <chartTitle>Graph</chartTitle>
   <type>TIME_SERIES</type>
   <background>
     <red>192</red>
@@ -28,6 +28,18 @@
           <red>255</red>
           <green>0</green>
           <blue>255</blue>
+          <alpha>255</alpha>
+        </color>
+      </SeriesData>
+    </entry>
+    <entry>
+      <string>Extinct Count</string>
+      <SeriesData>
+        <label>Extinct Count</label>
+        <color>
+          <red>255</red>
+          <green>200</green>
+          <blue>0</blue>
           <alpha>255</alpha>
         </color>
       </SeriesData>
