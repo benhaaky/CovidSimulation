@@ -554,3 +554,23 @@ Caused by: java.lang.NullPointerException
 	at cS310_Project.Agent.step(Agent.java:95)
 	at cS310_Project.Infected.step(Infected.java:169)
 	... 10 more
+FATAL [Thread-3] 2021-02-27 12:33:03,867 repast.simphony.ui.GUIScheduleRunner - RunTimeException when running the schedule
+Current tick (141.0)
+java.lang.RuntimeException: java.lang.reflect.InvocationTargetException
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:72)
+	at repast.simphony.engine.controller.ScheduledMethodControllerAction$ScheduleMethodAllAction.execute(ScheduledMethodControllerAction.java:336)
+	at repast.simphony.engine.schedule.DefaultAction.execute(DefaultAction.java:38)
+	at repast.simphony.engine.schedule.ScheduleGroup.executeList(ScheduleGroup.java:205)
+	at repast.simphony.engine.schedule.ScheduleGroup.execute(ScheduleGroup.java:231)
+	at repast.simphony.engine.schedule.Schedule.execute(Schedule.java:352)
+	at repast.simphony.ui.GUIScheduleRunner$ScheduleLoopRunnable.run(GUIScheduleRunner.java:52)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+Caused by: java.lang.reflect.InvocationTargetException
+	at cS310_Project.Infected$$FastClassByCGLIB$$9c4ce646.invoke(<generated>)
+	at net.sf.cglib.reflect.FastMethod.invoke(FastMethod.java:53)
+	at repast.simphony.engine.schedule.DynamicTargetAction.execute(DynamicTargetAction.java:69)
+	... 7 more
+Caused by: java.lang.NullPointerException
+	at cS310_Project.Infected.recover(Infected.java:76)
+	at cS310_Project.Infected.step(Infected.java:175)
+	... 10 more

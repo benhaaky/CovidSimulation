@@ -12,13 +12,11 @@ public class Vaccinated extends Agent{
 		// TODO Auto-generated constructor stub
 		super(space, grid, vulnerable);
 		double random = Math.random();
-		System.out.println(random);
 		if (random > 0.9) {
 			this.immune = false;
 			
 		} else {
 			this.immune = true;
-			System.out.println("Immunity");
 		}
 	}
 	public boolean isImmune() {

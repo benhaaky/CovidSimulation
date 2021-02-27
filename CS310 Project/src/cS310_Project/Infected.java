@@ -41,7 +41,8 @@ public class Infected extends Agent {
 		super(space, grid, vulnerable);
 		// Set recovery time from user input
 		this.vaccinated = vaccine;
-		
+		this.setVulnerable(vulnerable);
+		System.out.println(vulnerable);
 		//Calculate how long the agent is infected for
 		timeOfInfection = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		Parameters params = RunEnvironment.getInstance().getParameters();
@@ -99,7 +100,6 @@ public class Infected extends Agent {
 			} else if (obj instanceof Vaccinated) {
 				if (!((Vaccinated) obj).isImmune()) {
 					susAgents.add(obj);
-					System.out.println("No immunity");
 
 				}
 				
@@ -113,10 +113,10 @@ public class Infected extends Agent {
 			Context<Object> context = ContextUtils.getContext(this);
 			Infected newInfected;
 			if (sus instanceof Susceptible) {
-				newInfected = new Infected(getSpace(), getGrid(), false, this.atRisk());
+				newInfected = new Infected(getSpace(), getGrid(), false, ((Agent) sus).atRisk());
 				newInfected.setDestination(((Susceptible) sus).getDestination());
 			} else {
-				newInfected = new Infected(getSpace(), getGrid(), true, this.atRisk());
+				newInfected = new Infected(getSpace(), getGrid(), true, ((Agent) sus).atRisk());
 				newInfected.setDestination(((Vaccinated) sus).getDestination());
 			}
 			
@@ -135,20 +135,25 @@ public class Infected extends Agent {
 	public void startSymptoms() {
 		displaySymptoms();
 		double random = Math.random();
-		if(this.atRisk() && Math.random() > 0.2) {
-			threatened = true;
+		System.out.println(atRisk());
+		if(this.atRisk()) {
+			
+			this.threatened = true;
 		}
-		System.out.println("Extinct");
-		System.out.println(this.atRisk());
-		extinct();
 		
 		
 	}
 	public void extinct() {
-		Context<Object> context = ContextUtils.getContext(this);
-		Extinct newExtinct = new Extinct();
-		context.add(newExtinct);
-		context.remove(this);
+		// get current time
+		double currentTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
+		// Check if enough time has passed
+		System.out.println("fdsfdsfndsjkfdskjfjkdsbfjdsjfdsfdssjs");
+		if (currentTime > (recoveryTime+timeOfInfection)) {
+			Context<Object> context = ContextUtils.getContext(this);
+			Extinct newExtinct = new Extinct();
+			context.add(newExtinct);
+			context.remove(this);
+		}
 	}
 	
 	public void displaySymptoms() {
@@ -167,9 +172,16 @@ public class Infected extends Agent {
 		double currentTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		// Check if enough time has passed
 		if (currentTime > (timeToSymptoms+timeOfInfection)) {
+			
 			startSymptoms();
 		}
-		recover();
+		if(this.threatened == true) {
+			
+			extinct();
+		} else if (this.threatened == false) {
+			
+			recover();
+		}
 		
 	}
 	

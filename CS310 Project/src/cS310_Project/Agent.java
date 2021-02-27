@@ -44,11 +44,11 @@ public class Agent {
 		this.space = space;
 		this.grid = grid;
 		this.vaccinated = false;
-		this.vulnerable = vul;	
+		this.setVulnerable(vul);	
 		
 	}
 	public boolean atRisk() {
-		return this.vulnerable;
+		return this.isVulnerable();
 	}
 	public Grid<Object> getGrid(){
 		return this.grid;
@@ -93,5 +93,11 @@ public class Agent {
 	public void step() {
 		//Get grid location
 		move();
+	}
+	public boolean isVulnerable() {
+		return vulnerable;
+	}
+	public void setVulnerable(boolean vulnerable) {
+		this.vulnerable = vulnerable;
 	}
 }

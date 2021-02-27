@@ -61,6 +61,7 @@ public class SimBuilder implements ContextBuilder<Object> {
 		System.out.println(numAtRisk);
 		for (int i=0; i<agentCount; i++) {
 			if (i<numAtRisk) {
+				System.out.println("fdsfdsfndsjkfdskjfjkdsbfjdsjfdsfdssjs");
 				context.add(new Susceptible(space, grid, true));
 			} else {
 				
@@ -76,7 +77,7 @@ public class SimBuilder implements ContextBuilder<Object> {
 			context.add(new Infected(space, grid, false, false));
 			
 		}
-		context.add(new RnumberCalc());
+		//context.add(new RnumberCalc());
 		context.add(new Vaccination(10));
 		// Move each agent
 		for (Object obj : context) {
