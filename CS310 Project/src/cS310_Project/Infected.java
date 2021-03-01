@@ -23,7 +23,9 @@ public class Infected extends Agent {
 	//Store if the agents condition has worsened
 	private boolean threatened = false;
 	//Has agent been hospitilised
-	private boolean hospitilised = false;
+	private boolean inHospital = false;
+	
+	private boolean outHosipital = false;
 	
 	//Probably not needed
 	private boolean diagnosed;
@@ -59,6 +61,9 @@ public class Infected extends Agent {
 		} else {
 			timeToSymptoms = recoveryTime+10;
 		}
+	}
+	public void hospitilised() {
+		this.inHospital = true;
 	}
 	//Check if an infected agent has recovered
 	public void recover() {
@@ -175,10 +180,10 @@ public class Infected extends Agent {
 			
 			startSymptoms();
 		}
-		if(this.threatened == true) {
+		if(this.threatened == true && this.inHospital == false) {
 			
 			extinct();
-		} else if (this.threatened == false) {
+		} else if (this.threatened == false || this.inHospital == true) {
 			
 			recover();
 		}
