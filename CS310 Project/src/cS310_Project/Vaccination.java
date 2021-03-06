@@ -15,7 +15,7 @@ import repast.simphony.util.ContextUtils;
 
 public class Vaccination {
 	private int vaccPerTick;
-	private int vaccTotal = 8000;
+	private int vaccTotal = 4000;
 	private int currentVaccinated = 0;
 	public Vaccination(int num) {
 		Parameters params = RunEnvironment.getInstance().getParameters();

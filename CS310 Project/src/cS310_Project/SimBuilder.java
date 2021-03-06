@@ -56,7 +56,7 @@ public class SimBuilder implements ContextBuilder<Object> {
 		boolean sus = true;
 		
 		// Create susceptible agents and add them to context
-		double atRisk = 0.05;
+		double atRisk = 0.2;
 		double numAtRisk = agentCount*atRisk;
 		System.out.println(numAtRisk);
 		for (int i=0; i<agentCount; i++) {
@@ -77,7 +77,7 @@ public class SimBuilder implements ContextBuilder<Object> {
 			context.add(new Infected(space, grid, false, false));
 			
 		}
-		//context.add(new RnumberCalc());
+		context.add(new RnumberCalc());
 		context.add(new Vaccination(10));
 		context.add(new Hospital());
 		// Move each agent

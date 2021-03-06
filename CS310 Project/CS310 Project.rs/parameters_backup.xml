@@ -6,22 +6,27 @@
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 											/>
 				<parameter name="numSusceptible" displayName="Number of Susceptible" type="int" 
-						defaultValue="20000" 
+						defaultValue="25000" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 											/>
 				<parameter name="numInfected" displayName="Number of Infected Agents" type="int" 
-						defaultValue="100" 
+						defaultValue="14" 
+						isReadOnly="false" 
+						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
+											/>
+				<parameter name="spaceSize" displayName="Space Size" type="int" 
+						defaultValue="500" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 											/>
 				<parameter name="infectionTime" displayName="Ticks to recover" type="int" 
-						defaultValue="200" 
+						defaultValue="300" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 											/>
 				<parameter name="vaccinePerTick" displayName="Vaccinations per Tick" type="int" 
-						defaultValue="10" 
+						defaultValue="0" 
 						isReadOnly="false" 
 						converter="repast.simphony.parameter.StringConverterFactory$IntConverter"
 											/>

@@ -11,7 +11,7 @@ import repast.simphony.query.Query;
 import repast.simphony.util.ContextUtils;
 
 public class Hospital {
-	private int numBeds = 150;
+	private int numBeds = 350;
 	private int bedsOccupied = 0;
 	private ArrayList<Infected> waitingList = new ArrayList<Infected>();
 	private ArrayList<Infected> hospitlisedAgents = new ArrayList<Infected>();
@@ -45,7 +45,6 @@ public class Hospital {
 				occuBeds.add(newBed);
 				
 			} else {
-				System.out.println("Chichichichcihcichichichichichi");
 				waitingList.add(threatened);
 			}
 		}
@@ -57,7 +56,6 @@ public class Hospital {
 			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE)
 	public void freeSpace(Infected threatened) {
 		Context<Object> context = ContextUtils.getContext(this);
-		System.out.println("ffjdhjkhjkhjkjjkjjkjjj");
 		this.hospitlisedAgents.remove(threatened);
 		this.bedsOccupied -= 1;
 		
@@ -67,7 +65,6 @@ public class Hospital {
 		this.threatenedAgents -= 1;
 		
 		if(this.waitingList.size() != 0) {
-			System.out.println("Add From waitlist");
 			this.hospitlisedAgents.add(waitingList.get(0));
 			waitingList.get(0).hospitilised();
 			waitingList.remove(0);

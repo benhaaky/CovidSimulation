@@ -3,6 +3,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.engine.watcher.Watch;
+import repast.simphony.engine.watcher.WatcherTriggerSchedule;
 import repast.simphony.query.space.grid.GridCell;
 import repast.simphony.query.space.grid.GridCellNgh;
 import repast.simphony.random.RandomHelper;
@@ -38,6 +40,9 @@ public class Agent {
 	//Store whether agent is vulnerable
 	private boolean vulnerable;
 	
+	private double speed = 0.1;
+	
+
 	
 	public Agent (ContinuousSpace<Object> space, Grid<Object> grid, boolean vul) {
 		//Init agent in space and grid
@@ -46,6 +51,12 @@ public class Agent {
 		this.vaccinated = false;
 		this.setVulnerable(vul);	
 		
+	}
+	public void setSpeed(double newSpeed) {
+		this.speed = newSpeed;
+	}
+	public double getSpeed() {
+		return this.speed;
 	}
 	public boolean atRisk() {
 		return this.isVulnerable();
@@ -83,12 +94,13 @@ public class Agent {
 			NdPoint myPoint = space.getLocation(this);
 			NdPoint moveTowards = new NdPoint(pt.getX(), pt.getY());
 			double angle = SpatialMath.calcAngleFor2DMovement(space, myPoint, moveTowards);
-			space.moveByVector(this, 0.1, angle, 0);
+			space.moveByVector(this, this.speed, angle, 0);
 			NdPoint point = space.getLocation(this);
 			grid.moveTo(this, (int)point.getX(), (int)point.getY());
 		}
 		
 	}
+	
 
 	public void step() {
 		//Get grid location

@@ -8,6 +8,8 @@ import repast.simphony.context.Context;
 import repast.simphony.engine.environment.RunEnvironment;
 import repast.simphony.engine.schedule.Schedule;
 import repast.simphony.engine.schedule.ScheduledMethod;
+import repast.simphony.engine.watcher.Watch;
+import repast.simphony.engine.watcher.WatcherTriggerSchedule;
 import repast.simphony.parameter.Parameters;
 import repast.simphony.space.continuous.ContinuousSpace;
 import repast.simphony.space.continuous.NdPoint;
@@ -153,11 +155,13 @@ public class Infected extends Agent {
 	
 	public void startSymptoms() {
 		displaySymptoms();
+		this.setSpeed(0.02);
 		double random = Math.random();
 		
 	}
 	public void startWorsen() {
 		if(this.atRisk()) {
+			this.setSpeed(0.01);
 			
 			this.threatened = true;
 			this.recoveryTime = recoveryTime*1.25;
@@ -182,6 +186,21 @@ public class Infected extends Agent {
 	
 	public void detectInfection() {
 		this.diagnosed = true;
+	}
+	
+	@Watch(watcheeClassName = "cS310_Project.RnumberCalc",
+			watcheeFieldNames = "socialDistance1",
+			query = "colocated",
+			whenToTrigger = WatcherTriggerSchedule.IMMEDIATE)
+	public void socialDistance(RnumberCalc Rnum) {
+		if (threatened == false && symptomatic == false) {
+			if (Rnum.getSocialDistance1() == true) {
+				setSpeed(0.03);
+			} else {
+				setSpeed(0.14);
+			}
+		}
+		
 	}
 	
 	@ScheduledMethod(start = 1, interval = 1, shuffle=true, priority=5)

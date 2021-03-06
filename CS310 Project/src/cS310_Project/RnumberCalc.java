@@ -13,6 +13,13 @@ public class RnumberCalc {
 	private double currentInfections = 0.0;
 	private double totalInfections = 0.0;
 	private double symptomatic = 0.0;
+	private double previousTickInfections = 0.0;
+	private boolean socialDistance1 = false;
+	
+	
+	public boolean getSocialDistance1() {
+		return this.socialDistance1;
+	}
 	
 	@Watch(watcheeClassName = "cS310_Project.Infected",
 			watcheeFieldNames = "agentsInfected",
@@ -21,7 +28,7 @@ public class RnumberCalc {
 	public void calculateR() {
 		this.infectionTick += 1;
 		currentInfections += 1;
-		
+		this.totalInfections += 1;
 	}
 	@Watch(watcheeClassName = "cS310_Project.Infected",
 			watcheeFieldNames = "recovered",
@@ -39,13 +46,15 @@ public class RnumberCalc {
 		this.symptomatic += 1;
 		
 	}
+
 	
-	@ScheduledMethod(start = 1, interval = 1, priority = 6)
+	@ScheduledMethod(start = 1, interval = 200, priority = 6)
 	public void step() {
-		System.out.println("This tick: " + this.infectionTick);
-		System.out.println("Total: " + this.currentInfections);
+
 		double tR = 0;
 		double Rt = 0;
+		this.infectionTick = this.infectionTick/200;
+
 		if (this.currentInfections != 0 && this.infectionTick != 0) {
 			tR = this.currentInfections/this.infectionTick;
 			Rt = this.infectionTick/this.currentInfections;
@@ -54,10 +63,21 @@ public class RnumberCalc {
 		
 		double recoveryTicks = params.getInteger("infectionTime");
 		double Rnum = Rt*recoveryTicks/2;
-		System.out.println("total/R: " + tR);
-		System.out.println("R/total: " + Rt);
+
 		System.out.println("R: " + Rnum);
+		if (this.totalInfections > 500) {
+			if (Rnum > 0.5 && socialDistance1 == false) {
+				socialDistance1 = true;
+				System.out.println("hihihihihihihihihih");
+			} else if (Rnum < 0.5 && socialDistance1 == true) {
+				socialDistance1 = false;
+				System.out.println("opopopopopopopopopop");
+			}
+		}
+		
+		this.previousTickInfections = this.infectionTick;
 		this.infectionTick = 0;
 		
 	}
+	
 }
