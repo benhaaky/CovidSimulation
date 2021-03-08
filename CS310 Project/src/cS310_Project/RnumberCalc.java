@@ -48,12 +48,12 @@ public class RnumberCalc {
 	}
 
 	
-	@ScheduledMethod(start = 1, interval = 200, priority = 6)
+	@ScheduledMethod(start = 1, interval = 100, priority = 6)
 	public void step() {
 
 		double tR = 0;
 		double Rt = 0;
-		this.infectionTick = this.infectionTick/200;
+		this.infectionTick = this.infectionTick/100;
 
 		if (this.currentInfections != 0 && this.infectionTick != 0) {
 			tR = this.currentInfections/this.infectionTick;
@@ -66,10 +66,10 @@ public class RnumberCalc {
 
 		System.out.println("R: " + Rnum);
 		if (this.totalInfections > 500) {
-			if (Rnum > 0.5 && socialDistance1 == false) {
+			if (Rnum > 10 && socialDistance1 == false) {
 				socialDistance1 = true;
 				System.out.println("hihihihihihihihihih");
-			} else if (Rnum < 0.5 && socialDistance1 == true) {
+			} else if (Rnum < 10 && socialDistance1 == true) {
 				socialDistance1 = false;
 				System.out.println("opopopopopopopopopop");
 			}

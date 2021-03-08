@@ -29,6 +29,8 @@ public class Infected extends Agent {
 	
 	private boolean outHospital = false;
 	
+	private boolean extinct = false;
+	
 	//Probably not needed
 	private boolean diagnosed;
 	//Is agent symptomatic
@@ -172,7 +174,7 @@ public class Infected extends Agent {
 		double currentTime = RunEnvironment.getInstance().getCurrentSchedule().getTickCount();
 		// Check if enough time has passed
 		if (currentTime > (recoveryTime+timeOfInfection)) {
-			
+			this.extinct = true;
 			Context<Object> context = ContextUtils.getContext(this);
 			Extinct newExtinct = new Extinct();
 			context.add(newExtinct);
